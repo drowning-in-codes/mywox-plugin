@@ -1,0 +1,12 @@
+{
+  "ID":"5F5BD3F48775A1BBB387294CD32BF6B1",   
+  "ActionKeyword":"tr",                    
+  "Name":"Translate",                              
+  "Description":"translate",    
+  "Author":"proanimer",                     
+  "Version":"0.0.1",                         
+  "Language":"python",                       
+  "Website":"https://www.sekyoro.top",         
+  "IcoPath": "Images\\pic.jpg",              
+  "ExecuteFileName":"main.py"   
+}
