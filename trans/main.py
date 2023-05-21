@@ -1,18 +1,21 @@
 # encoding=utf8
 import json
-
 from bs4 import BeautifulSoup
 from wox import Wox, WoxAPI
-import pyperclip, copy, logging, os, webbrowser, requests, time, subprocess, hashlib
+import pyperclip,copy, logging, os, webbrowser, requests, time, subprocess, hashlib
 
 # 配置信息
-LEADING = 'tr'
-FREETRANS = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='
-BAIDU = "https://fanyi-api.baidu.com/api/trans/vip/translate"
-YOUDAO = ""
+LEADING = 'tr'  # 触发前缀
+FREETRANS = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=' #有道免费接口
+BAIDU = "https://fanyi-api.baidu.com/api/trans/vip/translate" # 百度收费接口 有免费额度
+YOUDAO = "" # 有道收费接口 正在完善
 
-QBAIDU = "https://fanyi-api.baidu.com/doc/21"
+# 文档链接
+QBAIDU = "https://fanyi-api.baidu.com/doc/21" # 百度翻译
 
+
+
+#错误信息模板
 ERROR_TEMPLATE = {
     "Title": "{}",
     "SubTitle": "{}",
@@ -133,7 +136,7 @@ class Main(Wox):
                     lang = json.load(f)
                     for k, v in lang.items():
                         self.results.append(
-                            self.add_item("翻译缩短语", v + ":" + k, "Images/bd.png", "configbaidu", filetype,
+                            self.add_item(v + ":" + k,"翻译缩短语" , "Images/bd.png", "configbaidu", filetype,
                                           k))
             except FileNotFoundError:
                 with open("./lang.json", "w+") as f:
@@ -278,7 +281,7 @@ class Main(Wox):
         resp = res.json()
         if res.status_code == 200:
             result = resp["translateResult"][0][0]["tgt"]
-            self.results.append(self.add_item("有道翻译", result, 'Images/youdao.png', "copy2clipboard", result))
+            self.results.append(self.add_item(result,"有道翻译" , 'Images/youdao.png', "copy2clipboard", result))
         else:
             if res.status_code != 200:
                 self.show_err(self.results, "有道翻译接口请求失败,可能是网络问题")
@@ -306,7 +309,7 @@ class Main(Wox):
             result = resp.get("trans_result", "")
             if result:
                 result = result[0]["dst"]
-                self.results.append(self.add_item("百度翻译", result, 'Images/bd.png', "copy2clipboard", result))
+                self.results.append(self.add_item(result,"百度翻译", 'Images/bd.png', "copy2clipboard", result))
             else:
                 errmsg = resp.get("error_msg", "")
                 errcode = resp.get("error_code", "")
