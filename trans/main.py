@@ -268,7 +268,8 @@ class Main(Wox):
             elif args[0] == "zy":
                 self.show_err(self.results, "有道智云翻译正在开发中")
                 # self.ydtrans(args[1])
-
+            else:
+                self.ydtrans(" ".join(args))
         return self.results
 
     # 翻译方法
