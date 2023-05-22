@@ -6,5 +6,4 @@ plugin for Wox
 
 2. Baidu translation for multiple languages 
 ![image-20230521173938835](https://s2.loli.net/2023/05/21/zH9peMTlJg13GYU.png)
-
 ![image-20230521174103179](https://s2.loli.net/2023/05/21/7CioWXbFr4nSx3d.png)

@@ -2,20 +2,18 @@
 import json
 from bs4 import BeautifulSoup
 from wox import Wox, WoxAPI
-import pyperclip,copy, logging, os, webbrowser, requests, time, subprocess, hashlib
+import pyperclip, copy, logging, os, webbrowser, requests, time, subprocess, hashlib
 
 # 配置信息
 LEADING = 'tr'  # 触发前缀
-FREETRANS = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=' #有道免费接口
-BAIDU = "https://fanyi-api.baidu.com/api/trans/vip/translate" # 百度收费接口 有免费额度
-YOUDAO = "" # 有道收费接口 正在完善
+FREETRANS = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i='  # 有道免费接口
+BAIDU = "https://fanyi-api.baidu.com/api/trans/vip/translate"  # 百度收费接口 有免费额度
+YOUDAO = ""  # 有道收费接口 正在完善
 
 # 文档链接
-QBAIDU = "https://fanyi-api.baidu.com/doc/21" # 百度翻译
+QBAIDU = "https://fanyi-api.baidu.com/doc/21"  # 百度翻译
 
-
-
-#错误信息模板
+# 错误信息模板
 ERROR_TEMPLATE = {
     "Title": "{}",
     "SubTitle": "{}",
@@ -95,31 +93,35 @@ class Main(Wox):
         """
         检查配置文件
         """
-        config = {}
-        try:
-            with open("./config.json", "r+") as f:
-                config = json.load(f)
-        except FileNotFoundError:
-            self.show_err(self.results, "配置文件不存在,正在帮您创建")
-            with open("./config.json", "w+") as f:
-                json.dump({"bd_appid": "", "bd_key": "", "yd_appid": "", "yd_key": ""}, f)
-        except json.decoder.JSONDecodeError:
-            self.show_err(self.results, "配置文件格式错误", method="openviewer")
 
-        if filetype == "bd":
-            self.appid = config.get('bd_appid', "")
-            self.key = config.get('bd_key', "")
-            if self.appid == "" or self.key == "":
-                self.show_err(self.results, "请先配置百度翻译的appid和key", method="openviewer")
+        if filetype == "yd":
+            self.results.append(self.add_item("有道免费翻译", "有道免费翻译", "Images/youdao.png",method=None))
+        else:
+            config = {}
+            try:
+                with open("./config.json", "r+") as f:
+                    config = json.load(f)
+            except FileNotFoundError:
+                self.show_err(self.results, "配置文件不存在,正在帮您创建")
+                with open("./config.json", "w+") as f:
+                    json.dump({"bd_appid": "", "bd_key": "", "yd_appid": "", "yd_key": ""}, f)
+            except json.decoder.JSONDecodeError:
+                self.show_err(self.results, "配置文件格式错误", method="openviewer")
 
-        elif filetype == "zy":
-            self.appid = config.get('yd_appid', "")
-            self.key = config.get('yd_key', "")
-            if self.appid == "" or self.key == "":
-                self.show_err(self.results, "请先配置有道智云翻译的appid和key", method="openviewer")
+            if filetype == "bd":
+                self.appid = config.get('bd_appid', "")
+                self.key = config.get('bd_key', "")
+                if self.appid == "" or self.key == "":
+                    self.show_err(self.results, "请先配置百度翻译的appid和key", method="openviewer")
 
-        if showtr:
-            self.showtrcontent(filetype)
+            elif filetype == "zy":
+                self.appid = config.get('yd_appid', "")
+                self.key = config.get('yd_key', "")
+                if self.appid == "" or self.key == "":
+                    self.show_err(self.results, "请先配置有道智云翻译的appid和key", method="openviewer")
+
+            if showtr:
+                self.showtrcontent(filetype)
 
         """
         显示翻译语言内容
@@ -136,7 +138,7 @@ class Main(Wox):
                     lang = json.load(f)
                     for k, v in lang.items():
                         self.results.append(
-                            self.add_item(v + ":" + k,"翻译缩短语" , "Images/bd.png", "configbaidu", filetype,
+                            self.add_item(v + ":" + k, "翻译缩短语", "Images/bd.png", "configbaidu", filetype,
                                           k))
             except FileNotFoundError:
                 with open("./lang.json", "w+") as f:
@@ -174,7 +176,7 @@ class Main(Wox):
             except json.decoder.JSONDecodeError:
                 self.show_err(self.results, "配置文件格式错误", "openviewer", "lang.json")
         elif filetype == "zy":
-            self.show_err(self.results,"正在施工中")
+            self.show_err(self.results, "正在施工中")
             pass
 
             """
@@ -182,7 +184,7 @@ class Main(Wox):
             """
 
     def showcontent(self, filetype, showtr=True):
-        if filetype == "bd" or filetype == "zy":
+        if filetype == "bd" or filetype == "zy" or filetype == "yd":
             self.checkfile(filetype, showtr)
         else:
             self.ydtrans(filetype)
@@ -248,10 +250,10 @@ class Main(Wox):
             translater = args[0]
             self.showcontent(translater)
 
-        if length >= 2:
+        elif length >= 2:
             if args[0] == "yd":
                 self.ydtrans(" ".join(args[1:]))
-            if args[0] == "bd":
+            elif args[0] == "bd":
                 self.showcontent("bd", False)
                 q = " ".join(args[2:])
                 if args[1].find("|") != -1:
@@ -272,17 +274,27 @@ class Main(Wox):
                 self.ydtrans(" ".join(args))
         return self.results
 
+    def context_menu(self, arg):
+        return [{
+            "Title": "去我的博客看看",
+            "SubTitle": "www.sekyoro.top",
+            "JsonRPCAction": {
+                "method": "openUrl",
+                "parameters": ["www.sekyoro.top"],
+            }
+        }]
+
     # 翻译方法
     def ydtrans(self, query=""):
         """
         有道免费翻译
         """
+
         res = self.request(FREETRANS + query)
-        self.results = []
         resp = res.json()
         if res.status_code == 200:
             result = resp["translateResult"][0][0]["tgt"]
-            self.results.append(self.add_item(result,"有道翻译" , 'Images/youdao.png', "copy2clipboard", result))
+            self.results.append(self.add_item(result, "有道翻译", 'Images/youdao.png', "copy2clipboard", result))
         else:
             if res.status_code != 200:
                 self.show_err(self.results, "有道翻译接口请求失败,可能是网络问题")
@@ -310,12 +322,12 @@ class Main(Wox):
             result = resp.get("trans_result", "")
             if result:
                 result = result[0]["dst"]
-                self.results.append(self.add_item(result,"百度翻译", 'Images/bd.png', "copy2clipboard", result))
+                self.results.append(self.add_item(result, "百度翻译", 'Images/bd.png', "copy2clipboard", result))
             else:
                 errmsg = resp.get("error_msg", "")
                 errcode = resp.get("error_code", "")
                 if errmsg:
-                    self.show_err(self.results, errcode + ":" + errmsg,"openUrl",QBAIDU)
+                    self.show_err(self.results, errcode + ":" + errmsg, "openUrl", QBAIDU)
         else:
             self.show_err(self.results, "网络出现问题,请重试")
 
