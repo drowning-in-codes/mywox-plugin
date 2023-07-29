@@ -1,8 +1,8 @@
 {
   "ID":"5F5BD3F48775A1BBB387294CD32BF6B1",   
   "ActionKeyword":"tr",                    
-  "Name":"Translate",                              
-  "Description":"translate",    
+  "Name":"protrans",
+  "Description":"pro translation for multiple platform",
   "Author":"proanimer",                     
   "Version":"0.0.1",                         
   "Language":"python",                       
