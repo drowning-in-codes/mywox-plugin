@@ -354,7 +354,7 @@ class Main(Wox):
 
         if length == 0:
             self.results.append(
-                self.add_item("有道智云翻译(正在开发中)", "需要配置key", 'Images/zhiyun.png', "configyoudao", "zy"))
+                self.add_item("有道智云翻译", "需要配置key", 'Images/zhiyun.png', "configyoudao", "zy"))
             self.results.append(
                 self.add_item("使用有道翻译免费版本", "暂只支持中英互译", 'Images/youdao.png', "freetrans", "yd"))
             self.results.append(self.add_item("使用百度翻译", "需要配置key", 'Images/bd.png', "configbaidu", "bd"))
@@ -489,7 +489,6 @@ class Main(Wox):
                 result = resp["translation"][0]
                 lang = resp["l"]
                 webtrans = resp.get("web", "")
-                self.logger.info(result)
                 if webtrans:
                     webtrans = ",".join(webtrans[0]["value"])
                     result = result + "\n" + webtrans

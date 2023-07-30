@@ -1,0 +1,12 @@
+{
+  "ID":"5b1196cd4661482cb2702e9cd51145c7",
+  "ActionKeyword":"bilive",
+  "Name":"BiliLive",
+  "Description":"Check to see if your anchor is live",
+  "Author":"proanimer",                     
+  "Version":"0.0.1",                         
+  "Language":"python",                       
+  "Website":"https://www.sekyoro.top",         
+  "IcoPath": "Images\\pic.jpg",              
+  "ExecuteFileName":"main.py"   
+}
