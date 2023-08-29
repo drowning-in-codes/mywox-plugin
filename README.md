@@ -3,12 +3,14 @@
 plugin for Wox 
 <p align="center"><a title="Chinese" href="README_zh.md">🇨🇳 中文简体</a>  |  🇬🇧 English</p>
 
+**Attention**:`pyperclip` module is used to copy to the clipboard, so you need to download the module, otherwise can't run successfully!
+
 ### translation
 
-1. free translation for YouDao,Only support for Chinese/English
+1. Free translation for YouDao, Only support for Chinese/English
     ![image-20230521174809680](https://s2.loli.net/2023/05/21/7FJRkB6H21wNcsL.png)
 
-2. Baidu translation for multiple languages .It's necessary for you to get appid and  key from baidu translation.[百度翻译开放平台 (baidu.com)](https://fanyi-api.baidu.com/product/11)
+2. Baidu translation for multiple languages.It's necessary for you to get appid and  key from Baidu translation.[百度翻译开放平台 (baidu.com)](https://fanyi-api.baidu.com/product/11)
 
 ![image-20230521173938835](https://s2.loli.net/2023/05/21/zH9peMTlJg13GYU.png)
 
@@ -22,7 +24,7 @@ plugin for Wox
 
 ### BiLive
 
-1. config your cookie first,login and search `SESSDATA`，and config your cookie.
+1. Config your cookie first, log in search `SESSDATA`， and config your cookie.
 
    ![image-20230730104617785](https://s2.loli.net/2023/07/30/E3LMmBaQxOYFudr.png)
 
@@ -30,6 +32,6 @@ plugin for Wox
 
 ![image-20230730114222720](https://s2.loli.net/2023/07/30/zObNa3g4jyiIHkd.png)
 
-2. search `all` for following users who are streaming and search your following user to check if he/she/helicopter is streaming.
+2. Search `all` for following users who are streaming and search your following user to check if he/she/helicopter is streaming.
 
 ![image-20230730114416589](https://s2.loli.net/2023/07/30/iDkMeFtXjQIHclG.png)
