@@ -4,6 +4,7 @@
 
 <p align="center">🇨🇳 中文简体  |  <a title="English" href="README.md">🇬🇧 English</a></p>
 
+**注意** 使用了pyperclip模块用于复制到粘贴板,所以需要python解释器下载这个模块,否则无法成功运行!
 #### 翻译
 
 1.有道免费翻译，只支持中文/英文
